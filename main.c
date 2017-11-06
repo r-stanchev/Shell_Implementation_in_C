@@ -1,43 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "commands.h"
 
 int main() {
     char* input = malloc(200 * sizeof(char));
     char* part;
     const char* space = " ";
-    char** parts = malloc(200 * sizeof(char));
     int i = 0;
 
-    printf("Please enter your command:\n");
+    printf("\nPlease enter your command:\n");
     while(1) {
         printf(">> ");
+
+        //Get input and remove the end-of-line character at the end of the string
         fgets(input,500,stdin);
-        char* result = commands(input);
-        printf("%s",result);
-        if (strcmp(result, "exit") == 0) {
-            break;
+        input[strlen(input)-1] = 0;
+
+        //Handles the case when the user wants to change directory
+        if (strncmp(input,"cd ",3) == 0) {
+            part = strtok(input,space);
+            free(input);
+            part = strtok(NULL,space);
+            chdir(part);
+        }
+
+        //(W.I.P.) Handles the rest of the cases
+        else {
+            char* result = commands(input);
+            printf("%s\n",result);
         }
     }
-
-
-
-    // part = strtok(input,space);
-    //
-    // while (part != NULL) {
-    //     parts[i] = part;
-    //     i++;
-    //     part = strtok(NULL,space);
-    // }
-
-
-
-    // commands(input);
-
-
-
-    free(parts);
-    free(input);
     return 0;
 }
