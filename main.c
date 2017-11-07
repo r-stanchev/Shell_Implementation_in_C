@@ -5,33 +5,31 @@
 #include "commands.h"
 
 int main() {
-    char* part;
-    const char* space = " ";
-    int i = 0;
 
     printf("\nPlease enter your command:\n");
     while(1) {
         printf(">> ");
-        char* input = malloc(200 * sizeof(char));
+        char* input = malloc(2000);
 
         //Get input and remove the end-of-line character at the end of the string
-        fgets(input,500,stdin);
-        input[strlen(input)-1] = 0;
+        fgets(input,200 * sizeof(char),stdin);
+        input[strlen(input)-1] = '\0';
 
         //Handles the case when the user wants to change directory
         if (strncmp(input,"cd ",3) == 0) {
-            part = strtok(input,space);
-            part = strtok(NULL,space);
+            char* part;
+            part = strtok(input," ");
+            part = strtok(NULL," ");
             chdir(part);
+            free(input);
         }
 
         //(W.I.P.) Handles the rest of the cases
         else {
             char* result = commands(input);
-
+            free(input);
             printf("%s\n",result);
         }
-        free(input);
     }
     return 0;
 }

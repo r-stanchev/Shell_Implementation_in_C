@@ -1,1 +1,1 @@
-char* commands();
+char* commands(char* cmd);
