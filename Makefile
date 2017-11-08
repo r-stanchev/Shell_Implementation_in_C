@@ -33,3 +33,4 @@ clean:
 
 main.o:  main.c commands.c
 commands.o: commands.c commands.h
+hello.o:	hello.c

@@ -1,8 +1,9 @@
+#include "commands.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "commands.h"
+
 
 int main() {
 
@@ -21,6 +22,33 @@ int main() {
             part = strtok(input," ");
             part = strtok(NULL," ");
             chdir(part);
+            free(input);
+        }
+
+        //Handles the case when the user wants to run a program
+        if (strncmp(input,"ex ",3) == 0) {
+            char* part;
+            part = strtok(input," ");
+            part = strtok(NULL," ");
+            pid_t pid = fork();
+            printf("SECOND!");
+            if (pid < 0){
+              printf("Fork has failed!");
+              exit(-1);
+            }
+
+            if(pid == 0)
+            {
+              // child
+              printf("FIRST!\n");
+              printf("IT IS: %d\n", pid);
+              execl(part, (char*)NULL);
+
+            }
+            else {
+              // parent
+              wait(NULL);
+            }
             free(input);
         }
 
