@@ -4,7 +4,7 @@
 EXE_DIR = t
 EXE = $(EXE_DIR)
 
-SRC= main.c commands.c
+SRC= main.c commands.c split.c
 
 # generic build details
 
@@ -33,4 +33,4 @@ clean:
 
 main.o:  main.c commands.c
 commands.o: commands.c commands.h
-hello.o:	hello.c
+split.o:	split.c commands.h
