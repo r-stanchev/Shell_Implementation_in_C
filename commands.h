@@ -1,2 +1,2 @@
-char* commands(char* cmd);
+char* commands(char** strHolder);
 char** split(char* input);
