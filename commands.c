@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
+
 
 char* commands(char** strHolder) {
 
     //See the information messege
     if (strcmp(strHolder[0],"info") == 0) {
-      char* string = "=====================================\nCOMP2211 Simplified Shell by sc16rbs\n=====================================";
-      printf("%s\n", string);
+      printf("=====================================\nCOMP2211 Simplified Shell by sc16rbs\n=====================================\n");
+      free(strHolder);
     }
 
     //See the current working directory
@@ -16,15 +18,24 @@ char* commands(char** strHolder) {
       char buf[200];
       getcwd(buf,200);      //The storage for the current working directory
       printf("%s\n", buf);
+      free(strHolder);
+    }
+
+    //Handles the case when the user wants to change directory
+    else if (strcmp(strHolder[0],"cd") == 0) {
+      chdir(strHolder[1]);
+      free(strHolder);
     }
 
     //Handles the case when the user wants to run a program
-    else if (strcmp(strHolder[0],"ex") == 0) {
+    else if (strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0],"exb") == 0) {
+      //Fork the parent process
       pid_t pid = fork();
       //Execute the program using the child
       if (pid == 0) {
         int k = 1;
         char** subArray = malloc(2000);
+        //New array holds the argumets to be passed to the execv() function
         while (strHolder[k] != NULL) {
           subArray[k-1] = strHolder[k];
           k++;
@@ -38,15 +49,9 @@ char* commands(char** strHolder) {
         exit(-1);
       }
       //Parent waits for child for child to complete task
-      else {
+      else if (strcmp(strHolder[0],"ex") == 0) {
         wait(NULL);
       }
       free(strHolder);
-    }
-
-    //(W.I.P.) Handles exit
-    else if (strcmp(strHolder[0],"exit") == 0) {
-        free(strHolder);
-        exit(EXIT_SUCCESS);
     }
 }

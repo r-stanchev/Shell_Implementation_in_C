@@ -11,8 +11,7 @@ int main() {
   char** strHolder;
   char* input;
 
-
-  printf("\nPlease enter your command:\n");
+  printf("\nWELCOME TO RADO'S SHELL\n");
   while(1) {
     printf(">> ");
     input = malloc(2000);
@@ -23,19 +22,20 @@ int main() {
 
     strHolder = split(input);
 
-    //Handles the case when the user wants to change directory
-    if (strcmp(strHolder[0],"cd") == 0) {
-      chdir(strHolder[1]);
-      free(input);
-    }
-
-    //Cases for info, pwd and exit
-    else if (strcmp(strHolder[0],"info") == 0 || strcmp(strHolder[0],"pwd") == 0 || strcmp(strHolder[0],"exit") == 0 || strcmp(strHolder[0],"ex") == 0) {
+    //Cases for info,cd,pwd,execution and background execution
+    if (strcmp(strHolder[0],"info") == 0 || strcmp(strHolder[0],"cd") == 0 || strcmp(strHolder[0],"pwd") == 0 || strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0], "exb") == 0) {
       commands(strHolder);
       free(input);
     }
+
+    //Handles exit
+    else if (strcmp(strHolder[0],"exit") == 0) {
+        free(strHolder);
+        free(input);
+        exit(EXIT_SUCCESS);
+    }
   }
   free(strHolder);
-  // free(input);
+  free(input);
   return 0;
 }

@@ -9,6 +9,7 @@ char** split(char* input) {
 
     part = strtok(input," ");
 
+    //Fill the array with strings, each string being for example a command, argument, executable, etc.
     while (part != NULL) {
         holder[i] = part;
         i++;
