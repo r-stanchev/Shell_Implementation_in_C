@@ -28,7 +28,7 @@ char* commands(char** strHolder) {
     }
 
     //Handles the case when the user wants to run a program
-    else if (strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0],"exb") == 0) {
+    else if (strcmp(strHolder[2],"ex") == 0 && (strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0],"exb") == 0)) {
       //Fork the parent process
       pid_t pid = fork();
       //Execute the program using the child
@@ -51,6 +51,36 @@ char* commands(char** strHolder) {
       //Parent waits for child for child to complete task
       else if (strcmp(strHolder[0],"ex") == 0) {
         wait(NULL);
+      }
+      free(strHolder);
+    }
+
+    if (strcmp(strHolder[2],"|") == 0 && strcmp(strHolder[0],"ex") == 0) {
+      int buffSize = sizeof(char)*2000;
+      char buffer[100];
+      char msg[] = "H E L L O,   R A D O\n";
+      int fd[2];
+      pid_t pid;
+
+      if (pipe(fd) == -1) {
+        printf("Pipe failed!\n");
+      }
+
+      pid = fork();
+      if (pid < 0) {
+        fprintf(stderr, "Fork failed");
+      }
+      else if (pid == 0) {
+        dup2(fd[1],1);
+        close(fd[1]);
+        close(fd[0]);
+        execv(strHolder[1], NULL);
+      }
+      else {
+        dup2(fd[0],0);
+        close(fd[0]);
+        close(fd[1]);
+        execv(strHolder[4], NULL);
       }
       free(strHolder);
     }

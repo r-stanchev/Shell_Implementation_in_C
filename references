@@ -1,1 +1,7 @@
-http://pubs.opengroup.org/onlinepubs/7908799/xsh/unistd.h.html - for looking up functions for unix-based systems 
+http://pubs.opengroup.org/onlinepubs/7908799/xsh/unistd.h.html - for looking up functions for unix-based systems
+
+http://tldp.org/LDP/lpg/node11.html - for reading on piping
+
+man page for pipe,read and write - for reading on piping
+
+https://stackoverflow.com/questions/21914632/implementing-pipe-in-c - managed to get the pipe to work by mimmcing his code
