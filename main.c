@@ -17,9 +17,16 @@ int main() {
     input = malloc(2000);
 
     //Get input and remove the newline character at the end of the string
-    fgets(input,2000,stdin);
+    char c=0;
+    int k=0;
+    while (c != EOF && c != '\n') {
+      c = getchar();
+      input[k] = c;
+      k++;
+    }
     input[strlen(input)-1] = 0;
 
+    //Split input into tokens so as to work with each one seperately 
     strHolder = split(input);
 
 

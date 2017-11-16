@@ -15,9 +15,6 @@ char* pipeline(char** strHolder) {
     printf("Pipe failed!\n");
   }
 
-  int stdin = dup(0);
-  int stdout = dup(1);
-
   pid = fork();
   if (pid < 0) {
   fprintf(stderr, "Fork failed");
@@ -25,8 +22,7 @@ char* pipeline(char** strHolder) {
 
   /* CHILD 1*/
  if (pid == 0) {
-    printf("C H I L D\n");
-    dup2(fd[1],1);
+    dup2(fd[1],STDOUT_FILENO);
     close(fd[0]);
     close(fd[1]);
     execv(strHolder[1], NULL);
@@ -36,10 +32,9 @@ char* pipeline(char** strHolder) {
     pid2 = fork();
     //Child 2 - to execute the second pipe command
     if (pid2 == 0) {
-      printf("C H I L D\n");
-      dup2(fd[0],0);
-      close(fd[0]);
+      dup2(fd[0],STDIN_FILENO);
       close(fd[1]);
+      close(fd[0]);
       execv(strHolder[4], NULL);
     }
     else {
@@ -47,7 +42,5 @@ char* pipeline(char** strHolder) {
       waitpid(pid2, &pid2, 0);
     }
   }
-   dup2(stdin,0);
-   dup2(stdout,1);
   free(strHolder);
 }
