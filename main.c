@@ -22,14 +22,26 @@ int main() {
 
     strHolder = split(input);
 
-    //Cases for info,cd,pwd,execution and background execution
-    if (strcmp(strHolder[0],"info") == 0 || strcmp(strHolder[0],"cd") == 0 || strcmp(strHolder[0],"pwd") == 0 || strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0], "exb") == 0 || (strcmp(strHolder[2],"|") == 0 && strcmp(strHolder[0],"ex") == 0)) {
-      commands(strHolder);
-      free(input);
-    }
 
-    //Handles exit
-   if (strcmp(strHolder[0],"exit") == 0) {
+    //Cases for info,cd,pwd,execution and background execution
+    if (strcmp(strHolder[0],"info") == 0 ||
+        strcmp(strHolder[0],"cd") == 0   ||
+        strcmp(strHolder[0],"pwd") == 0  ||
+        strcmp(strHolder[0],"ex") == 0   ||
+        strcmp(strHolder[0], "exb") == 0 ) {
+          if ( strHolder[2] == NULL) {
+        commands(strHolder);
+        free(input);
+      }
+        else {
+          if (strcmp(strHolder[2],"|") == 0) {
+            pipeline(strHolder);
+            free(input);
+          }
+        }
+      }
+      //Handles exit
+     else if (strcmp(strHolder[0],"exit") == 0) {
         free(strHolder);
         free(input);
         exit(EXIT_SUCCESS);

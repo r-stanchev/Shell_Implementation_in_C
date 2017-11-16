@@ -4,11 +4,11 @@
 EXE_DIR = t
 EXE = $(EXE_DIR)
 
-SRC= main.c commands.c split.c
+SRC= main.c commands.c split.c pipeline.c
 
 # generic build details
 
-CC=      cc
+CC=      gcc
 COPT=    -g
 CFLAGS= -lm -g
 
@@ -34,3 +34,4 @@ clean:
 main.o:  main.c commands.c
 commands.o: commands.c commands.h
 split.o:	split.c commands.h
+pipeline.o:	pipeline.c commands.h
