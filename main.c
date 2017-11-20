@@ -5,15 +5,17 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+#define KBLU  "\x1B[34m"
 
 int main() {
   char** strHolder;
   char* input;
 
+
   printf("\nWELCOME TO RADO'S SHELL\n");
   while(1) {
-    printf(">> ");
+    printf("rado$: ");
+    printf(KBLU "R A D O:\n");
     input = malloc(2000);
 
     //Get input and remove the newline character at the end of the string
@@ -29,34 +31,7 @@ int main() {
     //Split input into tokens so as to work with each one seperately
     strHolder = split(input);
 
-
-    //Cases for info,cd,pwd,execution and background execution
-    if (strcmp(strHolder[0],"info") == 0 ||
-        strcmp(strHolder[0],"cd") == 0   ||
-        strcmp(strHolder[0],"pwd") == 0  ||
-        strcmp(strHolder[0],"ex") == 0   ||
-        strcmp(strHolder[0], "exb") == 0 ) {
-          if ( strHolder[2] == NULL) {
-        commands(strHolder);
-        free(input);
-      }
-        else {
-          if (strcmp(strHolder[2],"|") == 0) {
-            pipeline(strHolder);
-            free(input);
-          }
-          else if (strcmp(strHolder[2],">") == 0) {
-            red(strHolder);
-            free(input);
-          }
-        }
-      }
-      //Handles exit
-     else if (strcmp(strHolder[0],"exit") == 0) {
-        free(strHolder);
-        free(input);
-        exit(EXIT_SUCCESS);
-    }
+    determine(strHolder);
   }
   free(strHolder);
   free(input);
