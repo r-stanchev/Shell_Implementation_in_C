@@ -3,13 +3,12 @@
 
 
 char** split(char* input) {
-    char* part;
-    char** holder = malloc(2000);
+    char* part;       //Holds the tokens returned by strtok before storing them in holder
+    char** holder = calloc(200,sizeof(char**));       //Stores the tokens that will be used later
     int i = 0;
+    part = strtok(input," ");     //Tokenize
 
-    part = strtok(input," ");
-
-    //Fill the array with strings, each string being for example a command, argument, executable, etc.
+    /*Tokenize the raw user input based on detected spaces and store each token as a member of the new array*/
     while (part != NULL) {
         holder[i] = part;
         i++;

@@ -2,23 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#define KBLU  "\x1B[34m"
+
 
 int main() {
-  char** strHolder;
-  char* input;
+  char** strHolder;   //The array holding the tokens
+  char* input;    //The initial, no tokenized input from the user
 
 
   printf("\nWELCOME TO RADO'S SHELL\n");
   while(1) {
     printf("rado$: ");
-    printf(KBLU "R A D O:\n");
-    input = malloc(2000);
+    input = calloc(200,sizeof(char*));
 
-    //Get input and remove the newline character at the end of the string
+    /*Get input and remove the newline character at the end of the string*/
     char c = 0;
     int k = 0;
     while (c != EOF && c != '\n') {
@@ -26,14 +22,13 @@ int main() {
       input[k] = c;
       k++;
     }
-      input[strlen(input)-1] = 0;
+    input[strlen(input)-1] = 0;
 
-    //Split input into tokens so as to work with each one seperately
+    /*Split input into tokens so as to work with each one seperately*/
     strHolder = split(input);
 
-    determine(strHolder);
+    /*Determine the type of command and execute corresponding pice of code*/
+    determine(strHolder,input);
   }
-  free(strHolder);
-  free(input);
   return 0;
 }

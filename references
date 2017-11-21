@@ -5,3 +5,8 @@ http://tldp.org/LDP/lpg/node11.html - for reading on piping
 man page for pipe,read and write - for reading on piping
 
 https://stackoverflow.com/questions/21914632/implementing-pipe-in-c - managed to get the pipe to work by mimmcing his code
+
+
+lecture 2 - looking up system calls for windows
+
+c tex book from 1st year (o'riley) - looking up portability problems(different file types in windows)

@@ -1,2 +1,3 @@
 alias mk='make;./t'
 alias cmp='gcc -o print print.c;gcc -o print2 print2.c'
+alias qwe='clear;make clean;clear;make'
