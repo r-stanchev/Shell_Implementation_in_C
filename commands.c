@@ -13,7 +13,7 @@ char* commands(char** strHolder) {
 
     //See the information messege
     if (strcmp(strHolder[0],"info") == 0) {
-      printf("=====================================\nCOMP2211 Simplified Shell by sc16rbs\n=====================================\n");
+      colour("=====================================\nCOMP2211 Simplified Shell by sc16rbs\n=====================================","green");
       free(strHolder);
     }
 
@@ -22,7 +22,7 @@ char* commands(char** strHolder) {
     else if (strcmp(strHolder[0],"pwd") == 0) {
       char buf[sizeof(char)*200];
       getcwd(buf,sizeof(char)*200);      //The storage buffer for the current working directory
-      printf("%s\n", buf);
+      colour(buf,"pink");
       free(strHolder);
     }
 
@@ -39,7 +39,7 @@ char* commands(char** strHolder) {
       pid_t pid = fork();     //Fork the parent process
       if (pid == 0) {     //Execute the program using the child
 
-        //Create a subarray of the main one(strHolder) which holds all but the first token in order to pass those tokens as arguments when running the desired program
+        //Create a subarray of the main array(strHolder) which holds all but the first token in order to pass those tokens as arguments when running the desired program
         int k = 1;
         char** subArray = calloc(200,sizeof(char**));
         while (strHolder[k] != NULL) {
@@ -51,7 +51,7 @@ char* commands(char** strHolder) {
       }
       //In case the child creation failed
       else if (pid < 0) {
-        printf("Fork has failed!");
+        colour("Fork has failed!","red");
         exit(-1);
       }
       //Parent waits for child for child to complete task

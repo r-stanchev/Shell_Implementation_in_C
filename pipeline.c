@@ -14,12 +14,13 @@ char* pipeline(char** strHolder) {
   pid_t pid,pid2;     //Variables for the two children
 
   if (pipe(fd) == -1) {       //In case the pipe creation failed
-    printf("Pipe failed!\n");
+    colour("Pipe failed!\n","red");
   }
   else {
     pid = fork();     //Create first child
     if (pid < 0) {
-      fprintf(stderr, "Fork failed");
+      colour("Fork has failed!","red");
+      exit(-1);
     }
 
   /*First child - duplicate write-end of pipe on to stdout, close both end of pipe and execute first program, the one writing to pipe*/

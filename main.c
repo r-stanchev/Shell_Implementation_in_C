@@ -8,10 +8,9 @@ int main() {
   char** strHolder;   //The array holding the tokens
   char* input;    //The initial, no tokenized input from the user
 
-
-  printf("\nWELCOME TO RADO'S SHELL\n");
+  colour("\nWELCOME TO RADO'S SHELL\n","blue");
   while(1) {
-    printf("rado$: ");
+    colour("\nrado$: ","yellow");
     input = calloc(200,sizeof(char*));
 
     /*Get input and remove the newline character at the end of the string*/

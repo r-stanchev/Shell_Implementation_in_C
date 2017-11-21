@@ -4,7 +4,7 @@
 EXE_DIR = t
 EXE = $(EXE_DIR)
 
-SRC= main.c commands.c split.c pipeline.c redirect.c determine.c
+SRC= main.c commands.c split.c pipeline.c redirect.c determine.c colour.c
 
 # generic build details
 
@@ -37,3 +37,4 @@ split.o:	split.c commands.h
 pipeline.o:	pipeline.c commands.h
 redirect.o:	redirect.c commands.h
 determine.o:	determine.c commands.h
+colour.o:	colour.c commands.h

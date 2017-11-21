@@ -6,3 +6,4 @@ char** split(char* input);
 char* pipeline(char** strHolder);
 char* red(char** strHolder);
 char** determine(char** strHolder,char* input);
+void colour(char* text,char* colour);

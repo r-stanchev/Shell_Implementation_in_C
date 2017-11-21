@@ -20,7 +20,7 @@ char* red(char** strHolder) {
     execv(strHolder[1], NULL);        //Execute the program
   }
   else if (pid < 0) {       //Child creation failed
-    printf("Fork has failed!");
+    colour("Fork has failed!","red");
     exit(-1);
   }
   /*Parent waits for child for the child to complete task*/
