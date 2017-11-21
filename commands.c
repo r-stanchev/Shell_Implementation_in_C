@@ -11,14 +11,14 @@ This function contains the code for separating between the cases for "info","pwd
 */
 char* commands(char** strHolder) {
 
-    //See the information messege
+    /*See the information messege*/
     if (strcmp(strHolder[0],"info") == 0) {
       colour("=====================================\nCOMP2211 Simplified Shell by sc16rbs\n=====================================","green");
       free(strHolder);
     }
 
 
-    //See the current working directory
+    /*See the current working directory*/
     else if (strcmp(strHolder[0],"pwd") == 0) {
       char buf[sizeof(char)*200];
       getcwd(buf,sizeof(char)*200);      //The storage buffer for the current working directory
@@ -27,14 +27,14 @@ char* commands(char** strHolder) {
     }
 
 
-    //Handles the case when the user wants to change directory
+    /*Handles the case when the user wants to change directory*/
     else if (strcmp(strHolder[0],"cd") == 0) {
       chdir(strHolder[1]);    //Call the POSIX function to change working directory
       free(strHolder);
     }
 
 
-    //Handles the case when the user wants to run a program
+    /*Handles the case when the user wants to run a program*/
     else if (strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0],"exb") == 0) {
       pid_t pid = fork();     //Fork the parent process
       if (pid == 0) {     //Execute the program using the child
@@ -58,6 +58,12 @@ char* commands(char** strHolder) {
       else if (strcmp(strHolder[0],"ex") == 0) {
         wait(NULL);
       }
+      free(strHolder);
+    }
+
+    /*Handles the case when the user wants to list all items in the current directory*/
+    else if (strcmp(strHolder[0],"ls") == 0) {
+      list();
       free(strHolder);
     }
 }
