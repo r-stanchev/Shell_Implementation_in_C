@@ -15,6 +15,7 @@ This function lists all files in the current working directory with the addition
 .h files are yellow
 all other files are blue
 */
+
 void list() {
   struct dirent **nameList;
   int n;
@@ -24,28 +25,28 @@ void list() {
 
   /*Checks if scan was successful*/
   if (n == -1) {
-    perror("scandir");
+    printf("Error! Scanning the directory for files failed!\n");
     exit(EXIT_FAILURE);
   }
 
   /*Print out the file names in reverse order by sticking to the colouring convention mentioned above*/
   while (n--) {
-    if (strstr(nameList[n]->d_name,".c") != NULL) {
+    if (strstr(nameList[n]->d_name,".c") != NULL) {       //Print coloured .c files
       colour(nameList[n]->d_name,"red");
       printf("\n");
       free(nameList[n]);
     }
-    else if (strstr(nameList[n]->d_name,".o") != NULL) {
+    else if (strstr(nameList[n]->d_name,".o") != NULL) {       //Print coloured .o files
       colour(nameList[n]->d_name,"pink");
       printf("\n");
       free(nameList[n]);
     }
-    else if (strstr(nameList[n]->d_name,".h") != NULL) {
+    else if (strstr(nameList[n]->d_name,".h") != NULL) {       //Print coloured .h files
       colour(nameList[n]->d_name,"yellow");
       printf("\n");
       free(nameList[n]);
     }
-    else {
+    else {                                                //Print all other files in blue
       colour(nameList[n]->d_name,"blue");
       printf("\n");
       free(nameList[n]);

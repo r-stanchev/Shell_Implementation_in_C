@@ -10,6 +10,7 @@
 This file contains the function definition for the determine-function.
 This function contains the code for separating between "info","pwd","cd","ex" and "exb" from pipelining, from redirecting program output to file, from exiting.
 */
+
 char** determine(char** strHolder,char* input) {
   /*Cases for info,cd,pwd,execution and background execution*/
   if (strcmp(strHolder[0],"info") == 0 ||

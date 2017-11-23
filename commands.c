@@ -9,6 +9,7 @@
 This file contains the function definition for the commands-function.
 This function contains the code for separating between the cases for "info","pwd","cd","ex" and "exb", and running those commands.
 */
+
 char* commands(char** strHolder) {
 
     /*See the information messege*/
@@ -37,24 +38,30 @@ char* commands(char** strHolder) {
     /*Handles the case when the user wants to run a program*/
     else if (strcmp(strHolder[0],"ex") == 0 || strcmp(strHolder[0],"exb") == 0) {
       pid_t pid = fork();     //Fork the parent process
-      if (pid == 0) {     //Execute the program using the child
+      if (pid == 0) {     //Child 
 
-        //Create a subarray of the main array(strHolder) which holds all but the first token in order to pass those tokens as arguments when running the desired program
+        /*Create a subarray of the main array(strHolder) which holds all but the first token in order to pass those tokens as arguments when running the desired program*/
         int k = 1;
         char** subArray = calloc(200,sizeof(char**));
-        while (strHolder[k] != NULL) {
+        if (subArray == NULL) {       //Check if memory has been allocated
+          printf("Error! Failed to allocate memory!");
+          exit(EXIT_FAILURE);
+        }
+        while (strHolder[k] != NULL) {        //Copy elements over to new array
           subArray[k-1] = strHolder[k];
           k++;
         }
         execv(strHolder[1], subArray);      //Actually execute the program
         free(subArray);
       }
-      //In case the child creation failed
+
+      /*In case the child creation failed*/
       else if (pid < 0) {
-        colour("Fork has failed!","red");
-        exit(-1);
+        colour("Fork has failed!\n","red");
+        exit(EXIT_FAILURE);
       }
-      //Parent waits for child for child to complete task
+
+      /*Parent waits for child for child to complete task*/
       else if (strcmp(strHolder[0],"ex") == 0) {
         wait(NULL);
       }
