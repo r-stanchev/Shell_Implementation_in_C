@@ -1,3 +1,7 @@
+/*
+Author: Radomir Boyanov Stanchev
+*/
+
 #include "commands.h"
 #include <stdio.h>
 #include <stdlib.h>
